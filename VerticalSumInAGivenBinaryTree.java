@@ -23,33 +23,29 @@ public class VerticalSumInAGivenBinaryTree {
 		 this.root.right.left =new Node(7);
 		 this.root.right.right =new Node(6);
 	}
-	void verticalSum(Node node){
+	void verticalSum(){
+		TreeMap<Integer,Integer> map=new TreeMap<>();
+		getSum(this.root,map,0);
+		for(Integer key:map.keySet())
+			System.out.println(map.get(key));
+	}
+	private void getSum(Node node, TreeMap<Integer, Integer> map, int hd) {
 		if(node==null)
 			return;
-		 
-		TreeMap< Integer, Integer> hm=new TreeMap<>();
-		vSum(node, 0, hm);
-		if(hm!=null){
-			for(Integer key:hm.keySet()){
-				System.out.println(hm.get(key));
-			}
+		if(map.containsKey(hd)){
+			int oldSum=map.get(hd);
+			map.put(hd, oldSum+node.key);
 		}
+		else{
+			map.put(hd, node.key);
+		}
+		getSum(node.left, map, hd-1);
+		getSum(node.right, map, hd+1);
 	}
-	void vSum(Node node,int hd,TreeMap<Integer,Integer> hm){
-		if(node==null)
-			return;
-		vSum(node.left,hd-1,hm);
-		int prevSum=(hm.get(hd)==null)?0:hm.get(hd);
-		hm.put(hd, prevSum+node.key);
-		vSum(node.right, hd+1, hm);
-	}
-	
-	
-
 	public static void main(String[] args) {
 		VerticalSumInAGivenBinaryTree tree=new VerticalSumInAGivenBinaryTree();
 		tree.makeTree();
-		tree.verticalSum(tree.root);
+		tree.verticalSum();
 	}
 
 }
