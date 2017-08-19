@@ -26,7 +26,7 @@ public class ContinuousMedianUsingHeaps {
 		PriorityQueue<Integer> biggerHeap=lowers.size()>highers.size()?lowers:highers;
 		PriorityQueue<Integer> smallerHeap=lowers.size()>highers.size()?highers:lowers;
 		if(biggerHeap.size()==smallerHeap.size()){
-			return (biggerHeap.peek()+smallerHeap.peek())/2;
+			return ((double)biggerHeap.peek()+smallerHeap.peek())/2;
 		}
 		return biggerHeap.peek();
 	}
